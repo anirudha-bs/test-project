@@ -21,6 +21,7 @@ class SignalRepository:
             id=uuid.uuid4(),
             ticker=ticker,
             score=score,
+            weighted_score=score,
             sentiment_label=sentiment_label,
             source_count=source_count,
             updated_at=datetime.utcnow()

@@ -37,10 +37,10 @@ class WeightedSignalEngine:
 
     def _get_sentiment_label(self, score: float) -> str:
         if score > 0.2:
-            return 'Bullish'
+            return 'buy'
         elif score < -0.2:
-            return 'Bearish'
-        return 'Neutral'
+            return 'sell'
+        return 'hold'
 
     def generate_signal(self, ticker: str, data_feeds: Dict[str, List[Dict[str, Any]]]) -> Signal:
         total_weighted_score = 0.0
@@ -70,6 +70,9 @@ class WeightedSignalEngine:
                 norm_score = result[0]
             else:
                 norm_score = result
+
+            if norm_score is None:
+                continue
 
             total_weighted_score += norm_score * weight
             total_weight_used += weight
