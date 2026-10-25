@@ -9,7 +9,7 @@ router = APIRouter()
 
 class ThresholdUpdate(BaseModel):
     ticker: str
-    threshold: Optional[float] = None
+    threshold: float
     notify_email: Optional[bool] = None
 
 @router.patch("/thresholds")

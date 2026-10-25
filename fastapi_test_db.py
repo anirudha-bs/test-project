@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from fastapi_test_db import get_db
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 
