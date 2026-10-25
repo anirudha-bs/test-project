@@ -3,25 +3,11 @@ from datetime import datetime
 from typing import List, Dict, Any, Tuple, Optional
 from dataclasses import dataclass
 
-try:
-    from db.models import Signal, SignalSource
-except ImportError:
-    from .see.mocks.db.models import Signal, SignalSource
+from db.models import Signal, SignalSource
 
-try:
-    from src.ingestion.services.news_normalization import normalize_news_signal
-except ImportError:
-    from .see.mocks.src.ingestion.services.news_normalization import normalize_news_signal
-
-try:
-    from src.ingestion.services.options_normalization import normalize_options_signal
-except ImportError:
-    from .see.mocks.src.ingestion.services.options_normalization import normalize_options_signal
-
-try:
-    from src.ingestion.services.sentiment_normalization import normalize_sentiment_signal
-except ImportError:
-    from .see.mocks.src.ingestion.services.sentiment_normalization import normalize_sentiment_signal
+from src.ingestion.services.news_normalization import normalize_news_signal
+from src.ingestion.services.options_normalization import normalize_options_signal
+from src.ingestion.services.sentiment_normalization import normalize_sentiment_signal
 
 from .repository import SignalRepository
 

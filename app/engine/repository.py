@@ -2,10 +2,7 @@ import uuid
 from datetime import datetime
 from typing import List, Optional
 
-try:
-    from db.models import Signal, SignalSource, SessionLocal
-except ImportError:
-    from .see.mocks.db.models import Signal, SignalSource, SessionLocal
+from db.models import Signal, SignalSource, SessionLocal
 
 class SignalRepository:
     def __init__(self, session=None):
