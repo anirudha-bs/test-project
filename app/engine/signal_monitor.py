@@ -63,18 +63,20 @@ class SignalMonitor:
             
         if is_transition or is_threshold_breach:
             # De-duplicate: only notify if this exact state transition hasn't been handled
-            # Note: threshold breaches might happen multiple times, but we should probably 
-            # only notify once per "breach event". 
-            # For now, let's use the cache_key to prevent duplicates of the same state.
             
             if cache_key not in self._transition_cache:
-                notification_service.send(
-                    user_id=user_id,
-                    ticker=ticker,
-                    score=score,
-                    transition_type=transition_type or "Signal Change"
-                )
-                self._transition_cache.add(cache_key)
+                # Check if notification should be sent based on session and email opt-in
+                is_active = notification_service.active_sessions.__contains__(user_id)
+                notify_email = getattr(item, 'notify_email', True)
+                
+                if is_active or notify_email:
+                    notification_service.send(
+                        user_id=user_id,
+                        ticker=ticker,
+                        score=score,
+                        transition_type=transition_type or "Signal Change"
+                    )
+                    self._transition_cache.add(cache_key)
         
         # If state returns to Neutral, clear it from cache to allow future transitions
         if state == "Neutral":
