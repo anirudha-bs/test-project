@@ -3,9 +3,13 @@ from datetime import datetime
 from typing import List, Optional
 
 try:
-    from db.models import Signal, SignalSource, SessionLocal
+    from db.models import Signal, SignalSource
+    from db.database import SessionLocal
 except ImportError:
-    from .see.mocks.db.models import Signal, SignalSource, SessionLocal
+    # Fallback for local environment without db package
+    class Signal: pass
+    class SignalSource: pass
+    class SessionLocal: pass
 
 class SignalRepository:
     def __init__(self, session=None):

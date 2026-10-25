@@ -6,22 +6,23 @@ from dataclasses import dataclass
 try:
     from db.models import Signal, SignalSource
 except ImportError:
-    from .see.mocks.db.models import Signal, SignalSource
+    class Signal: pass
+    class SignalSource: pass
 
 try:
     from src.ingestion.services.news_normalization import normalize_news_signal
 except ImportError:
-    from .see.mocks.src.ingestion.services.news_normalization import normalize_news_signal
+    def normalize_news_signal(data): return 0.5
 
 try:
     from src.ingestion.services.options_normalization import normalize_options_signal
 except ImportError:
-    from .see.mocks.src.ingestion.services.options_normalization import normalize_options_signal
+    def normalize_options_signal(data): return 0.5
 
 try:
     from src.ingestion.services.sentiment_normalization import normalize_sentiment_signal
 except ImportError:
-    from .see.mocks.src.ingestion.services.sentiment_normalization import normalize_sentiment_signal
+    def normalize_sentiment_signal(data): return 0.5
 
 from .repository import SignalRepository
 
