@@ -8,20 +8,7 @@ try:
 except ImportError:
     from .see.mocks.db.models import Signal, SignalSource
 
-try:
-    from src.ingestion.services.news_normalization import normalize_news_signal
-except ImportError:
-    from .see.mocks.src.ingestion.services.news_normalization import normalize_news_signal
-
-try:
-    from src.ingestion.services.options_normalization import normalize_options_signal
-except ImportError:
-    from .see.mocks.src.ingestion.services.options_normalization import normalize_options_signal
-
-try:
-    from src.ingestion.services.sentiment_normalization import normalize_sentiment_signal
-except ImportError:
-    from .see.mocks.src.ingestion.services.sentiment_normalization import normalize_sentiment_signal
+from .normalizers import normalize_news_signal, normalize_options_signal, normalize_sentiment_signal
 
 from .repository import SignalRepository
 

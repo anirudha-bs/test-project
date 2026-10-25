@@ -2,10 +2,8 @@ import uuid
 from datetime import datetime
 from typing import List, Optional
 
-try:
-    from db.models import Signal, SignalSource, SessionLocal
-except ImportError:
-    from .see.mocks.db.models import Signal, SignalSource, SessionLocal
+from db.models import Signal, SignalSource
+from db.database import SessionLocal
 
 class SignalRepository:
     def __init__(self, session=None):
@@ -16,9 +14,9 @@ class SignalRepository:
         res = self.session.query(Signal).filter(ticker=ticker).all()
         return res[0] if res else None
 
-    def save_signal(self, ticker: str, score: float, sentiment_label: str, source_count: int) -> uuid.UUID:
+    def save_signal(self, ticker: str, score: float, sentiment_label: str, source_count: int) -> str:
         signal = Signal(
-            id=uuid.uuid4(),
+            id=str(uuid.uuid4()),
             ticker=ticker,
             score=score,
             weighted_score=score,
@@ -30,9 +28,9 @@ class SignalRepository:
         self.session.commit()
         return signal.id
 
-    def save_signal_source(self, signal_id: uuid.UUID, source_type: str, url: str, snippet: str, weight: float):
+    def save_signal_source(self, signal_id: str, source_type: str, url: str, snippet: str, weight: float):
         source = SignalSource(
-            id=uuid.uuid4(),
+            id=str(uuid.uuid4()),
             signal_id=signal_id,
             source_type=source_type,
             url=url,
